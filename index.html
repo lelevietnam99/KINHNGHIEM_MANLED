@@ -17,6 +17,21 @@
             margin: 0;
             padding: 20px;
         }
+         .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg,#4da6ff,#2b88ff);
+            color: #ffdd57; /* chữ màu vàng */
+            padding: 10px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            margin: 18px 0;
+            box-shadow: 0 6px 18px rgba(45,122,255,0.18);
+        }
+        .download-btn svg { transform: translateY(1px); }
+        .download-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(45,122,255,0.22); }
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -70,7 +85,10 @@
     <img src="huongdanled.jpg" alt="Hình ảnh hướng dẫn LED" class="header-image">
 
     <h1>Kinh Nghiệm Setup Màn Hình LED</h1>
-    
+    <a class="download-btn" href="https://drive.google.com/file/d/1BCUtF9_ipU9aD_P-p84F7Gu9GjKVTiLh/view?usp=sharing" target="_blank" rel="noopener noreferrer" title="Tải LED Studio">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 11l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="17" width="18" height="4" rx="1" fill="currentColor"/></svg>
+        Tải LED Studio
+    </a>
     <p>Tối hôm qua, mình có setup phần cấu hình màn hình LED có kích thước <span class="highlight">5*12 cabin</span>, trong đó mỗi cabin có kích thước là <span class="highlight">128*128</span>.</p>
     
     <ul>
