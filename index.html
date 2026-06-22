@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinh nghiệm lắp đặt màn hình LED</title>
+    <style>
+        body {
+            /* Cài đặt background hình vũ trụ */
+            background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            /* Lớp nền đen mờ giúp chữ dễ đọc hơn trên nền vũ trụ */
+            background-color: rgba(0, 0, 0, 0.75); 
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+        }
+        .header-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 2px solid #4da6ff;
+        }
+        h1 {
+            text-align: center;
+            color: #4da6ff;
+            border-bottom: 2px solid #4da6ff;
+            padding-bottom: 15px;
+            margin-top: 0;
+        }
+        h2 {
+            color: #ffcc00;
+            margin-top: 25px;
+            font-size: 1.3em;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .highlight {
+            color: #00ffcc;
+            font-weight: bold;
+        }
+        .note {
+            background-color: rgba(255, 51, 51, 0.2);
+            border-left: 4px solid #ff3333;
+            padding: 15px;
+            margin-top: 30px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="huongdanled.jpg" alt="Hình ảnh hướng dẫn LED" class="header-image">
+
+    <h1>Kinh Nghiệm Setup Màn Hình LED</h1>
+    
+    <p>Tối hôm qua, mình có setup phần cấu hình màn hình LED có kích thước <span class="highlight">5*12 cabin</span>, trong đó mỗi cabin có kích thước là <span class="highlight">128*128</span>.</p>
+    
+    <ul>
+        <li>Mình đi <strong>5 dây nguồn</strong> cho mỗi hàng LED, mỗi hàng gồm 12 cái.</li>
+        <li>Và mình đi <strong>2 dây nguồn mạng LAN</strong>, mỗi nguồn là phụ trách một mảng có kích thước là 6*5 và chia làm hai nửa: <em>Nửa Trái</em> và <em>Nửa Phải</em>.</li>
+    </ul>
+
+    <h2>Tính toán thông số Width & Height</h2>
+    <ul>
+        <li>Vì tổng chiều dài là 12 nên set width là: <strong>12 * 128 = 1536</strong></li>
+        <li>Và tổng chiều rộng là 5 nên set height là: <strong>5 * 128 = 640</strong></li>
+    </ul>
+
+    <h2>Phương pháp để bộ điều khiển hoạt động tốt</h2>
+    <ul>
+        <li><strong>Bước 1:</strong> Vào Advanced Setting -> Chọn Reset -> OK -> Sau đó, mình nhìn vào các phím trên bộ xử lý -> Mình chọn HDMI.</li>
+        <li><strong>Bước 2:</strong> Mình sẽ chọn độ sáng nhỏ xuống (Brightness) tầm 14, vì nếu màn LED để sáng quá thì nó sẽ tốn điện.</li>
+        <li><strong>Bước 3:</strong> Mình ghi chú vào 2 cổng LAN của Bộ Điều Khiển: 
+            <ul>
+                <li>Bên Trái là <strong>Số 1</strong> - Tương ứng với Nửa Trái (hoặc nửa trên).</li>
+                <li>Bên Phải là <strong>Số 2</strong> - Tương ứng với Nửa Phải (hoặc nửa dưới).</li>
+            </ul>
+        </li>
+        <li><strong>Bước 4:</strong> Khi mình set up, chỗ <em>Display connection</em>, mình sẽ chọn như sau: (Hình Đính Kèm).</li>
+        <li><strong>Bước 5:</strong> Nếu trường hợp lỗi có thể xảy ra thì ở bước 1, mình chọn lại file: <code>pcchuan.rcg</code>, sau đó chọn Default, rồi chọn lại set width: 1536, rồi sau đó mình làm lại như bình thường ạ.</li>
+    </ul>
+
+    <p style="text-align: center; color: #ff99cc; font-style: italic; margin-top: 25px;">
+        Khi bấm <strong>Send on sender</strong> và <strong>Save on Files</strong> xong xuôi, rồi sau đó chúng ta mới quay lại bộ xử lý để chỉnh width và height của màn hình.
+    </p>
+
+    <div class="note">
+        <strong>⚠️ Chú ý:</strong> Để đảm bảo an toàn về điện, tránh hiện tượng quá tải điện: Chúng ta nên đi dây nguồn với 2 CB, để khi có sự cố chúng ta dễ xử lý hơn ạ.
+    </div>
+</div>
+
+</body>
+</html>
