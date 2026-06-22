@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PQQ - Kỹ Thuật An Toàn Điện Màn Hình LED</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #1b4332;
+            --primary-light: #40916c;
+            --accent-color: #bc4749;
+            --warning-color: #f59e0b;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --text-main: #2d3748;
+            --text-muted: #5a6a85;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .overlay {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(240, 244, 241, 0.5) 100%);
+            backdrop-filter: blur(4px);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Style */
+        header {
+            background: var(--bg-card);
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 2.3em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1em;
+            font-style: italic;
+        }
+
+        /* Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 992px) {
+            .grid-container {
+                grid-template-columns: 1.3fr 1fr;
+            }
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+        }
+
+        .card-title {
+            font-size: 1.4em;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-title i {
+            color: var(--primary-light);
+        }
+
+        /* Content Elements */
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .math-block {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #1e293b;
+            margin: 15px 0;
+        }
+
+        /* Images integration */
+        .image-container {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 3px solid #fff;
+            text-align: center;
+        }
+
+        .image-container img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-caption {
+            background: #f8fafc;
+            padding: 10px;
+            font-size: 0.9em;
+            color: var(--text-muted);
+            border-top: 1px solid #e2e8f0;
+            font-style: italic;
+        }
+
+        /* Lists */
+        ul.custom-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        ul.custom-list li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 12px;
+        }
+
+        ul.custom-list li::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--primary-light);
+        }
+
+        /* Table Style */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+        }
+
+        tr:hover {
+            background-color: rgba(64, 145, 108, 0.05);
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: rgba(239, 68, 68, 0.08);
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .warning-box h4 {
+            color: var(--accent-color);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Simulator UI */
+        .sim-control {
+            margin-bottom: 20px;
+        }
+
+        .sim-control label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+
+        .range-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .range-wrapper input[type="range"] {
+            flex: 1;
+            height: 7px;
+            border-radius: 5px;
+            background: #e2e8f0;
+            outline: none;
+            accent-color: var(--primary-light);
+        }
+
+        .range-val {
+            min-width: 60px;
+            text-align: right;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .sim-select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            background: white;
+            font-size: 0.95em;
+            outline: none;
+        }
+
+        .sim-results {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            color: #4a5568;
+        }
+
+        .result-value {
+            font-weight: 700;
+        }
+
+        .danger-alert {
+            background: #fee2e2;
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            font-weight: 500;
+            display: none;
+            text-align: center;
+        }
+
+        /* 3-Phase Grid Visualizer */
+        .phase-title {
+            font-size: 1em;
+            font-weight: 600;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #4a5568;
+        }
+
+        .phase-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .phase-card {
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .p-l1 { background-color: #2563eb; }
+        .p-l2 { background-color: #16a34a; }
+        .p-l3 { background-color: #ca8a04; }
+
+        .phase-sub {
+            font-size: 0.8em;
+            font-weight: normal;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="overlay">
+    <div class="wrapper">
+        
+        <!-- HEADER -->
+        <header>
+            <h1><i class="fa-solid fa-shield-halved"></i> PQQ - Kỹ Thuật An Toàn Điện Màn Hình LED</h1>
+            <p>Hệ thống quản lý tri thức, cơ sở vật lý thực chiến và mô phỏng tải điện trực quan</p>
+        </header>
+
+        <!-- MAIN GRID CONTENT -->
+        <div class="grid-container">
+            
+            <!-- LEFT COLUMN: PHYSICS AND PRECAUTIONS -->
+            <div class="left-col">
+                
+                <!-- CARD 1: PHYSICS BACKGROUND -->
+                <div class="card">
+                    <h2 class="card-title"><i class="fa-solid fa-atom"></i> 1. Bản Chất Vật Lý & Nguy Cơ Cháy Nổ</h2>
+                    <p>Sự cố hỏa hoạn đối với hệ thống màn hình LED khối lượng lớn phần lớn bắt nguồn từ sự thiếu kiểm soát năng lượng nhiệt tỏa ra trên đường dây truyền tải. Theo <strong>Định luật Joule-Lenz</strong>, nhiệt lượng sinh ra tỷ lệ thuận với bình phương cường độ dòng điện:</p>
+                    
+                    <div class="math-block">Q = I² × R × t</div>
+                    
+                    <p>Khi bạn thiết lập cấu hình màn hình hoạt động ở công suất cao, dòng điện <span class="highlight">I</span> tăng vọt. Nếu tiết diện dây dẫn quá nhỏ hoặc độ dài đường dây quá lớn làm tăng điện trở nội <span class="highlight">R</span>, nhiệt năng tích tụ sẽ nung nóng lớp vỏ bọc cách điện cách điện PVC gây chập cháy pha.</p>
+                    
+                    <p>Hơn thế nữa, <strong>hiện tượng sụt áp (Voltage Drop)</strong> tính theo công thức <span class="highlight">ΔU = I × R</span> sẽ kéo sụt điện áp đầu vào thực tế của các khối cabin. Khi nguồn cấp bị kéo xuống dưới ngưỡng an toàn, các linh kiện vi mạch bên trong card thu buộc phải làm việc quá công suất để bù dòng, dẫn đến hiện tượng chớp nháy màn hình hoặc sập nguồn hệ thống hoàn toàn.</p>
+                    
+                    <!-- IMAGE CANHBAO1 -->
+                    <div class="image-container">
+                        <img src="canhbao1.jpg" alt="Nguy cơ quá tải nhiệt đường dây dẫn nguồn LED">
+                        <div class="image-caption">Hình 1: Minh họa điểm nóng cục bộ tại trạm vít và hiện tượng quá tải nhiệt lõi đồng</div>
+                    </div>
+                </div>
+
+                <!-- CARD 2: SAFETY TECHNIQUES -->
+                <div class="card">
+                    <h2 class="card-title"><i class="fa-solid fa-screwdriver-wrench"></i> 2. Biện Pháp Phòng Ngừa Kỹ Thuật</h2>
+                    <p>Để tối ưu hóa hiệu suất và loại bỏ triệt để nguy cơ cháy nổ, kỹ thuật viên thi công cần tuân thủ nghiêm ngặt các nguyên tắc tổ chức cơ khí hạ tầng nguồn điện:</p>
+                    
+                    <ul class="custom-list">
+                        <li><strong>Mật độ dòng điện an toàn:</strong> Lựa chọn dây cáp đồng nguyên chất đạt chuẩn với biên độ chịu tải khuyến nghị từ <span class="highlight">4A đến 6A trên mỗi 1mm²</span> tiết diện lõi.</li>
+                        <li><strong>Bắt buộc bấm đầu cos:</strong> Tuyệt đối không xoắn dây đồng trần nhét vào trạm vít. Toàn bộ đầu dây nguồn 220V tổng và dây nguồn 5V module phải được ép chặt bằng đầu cos (cos Y, cos ghim) nhằm triệt tiêu điện trở tiếp xúc lỏng gây phóng tia lửa điện.</li>
+                        <li><strong>Phân bố tản nhiệt chủ động:</strong> Tách biệt hoàn toàn bó cáp nguồn động lực khỏi bó cáp mạng tín hiệu LAN. Thiết kế hệ thống quạt hút đối lưu khí nóng từ thùng cabin ra môi trường bên ngoài.</li>
+                    </ul>
+
+                    <h3 style="font-size: 1.1em; color: var(--primary-color); margin: 15px 0 10px 0;">Bảng tra cứu phối hợp tiết diện dây và Aptomat (CB) bảo vệ:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Công suất tải</th>
+                                <th>Dòng điện hiệu dụng</th>
+                                <th>Tiết diện lõi đồng</th>
+                                <th>Cỡ CB bảo vệ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2.2 kW</td>
+                                <td>~10 A</td>
+                                <td>1.5 mm²</td>
+                                <td>Aptomat 16A</td>
+                            </tr>
+                            <tr>
+                                <td>3.5 kW</td>
+                                <td>~16 A</td>
+                                <td>2.5 mm²</td>
+                                <td>Aptomat 20A</td>
+                            </tr>
+                            <tr>
+                                <td>5.5 kW</td>
+                                <td>~25 A</td>
+                                <td>4.0 mm²</td>
+                                <td>Aptomat 32A</td>
+                            </tr>
+                            <tr>
+                                <td>8.0 kW</td>
+                                <td>~36 A</td>
+                                <td>6.0 mm²</td>
+                                <td>Aptomat 40A</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- CARD 3: USER RECOMMENDATIONS -->
+                <div class="card">
+                    <h2 class="card-title"><i class="fa-solid fa-triangle-exclamation"></i> 3. Khuyến Cáo Khẩn Cấp Cho Người Vận Hành</h2>
+                    <p>Trong quá trình vận hành trực tiếp, người sử dụng cần đặc biệt lưu tâm các yếu tố hành vi sau nhằm bảo vệ tuổi thọ phần cứng và an toàn cho công trình:</p>
+                    
+                    <div class="warning-box">
+                        <h4><i class="fa-solid fa-circle-exclamation"></i> Những điều bắt buộc lưu ý:</h4>
+                        <p>1. <strong>Kiểm soát độ sáng cấu hình:</strong> Không tự ý đẩy độ sáng (Brightness) lên mức tối đa khi không thực sự cần thiết. Hãy duy trì ở mức độ vừa phải (ví dụ ban đầu setup nên để tầm mức 14) nhằm tiết kiệm điện và giảm stress nhiệt cho hệ thống diode bán dẫn.</p>
+                        <p>2. <strong>Trình tự đóng ngắt nguồn:</strong> Khi bật, hãy bật máy tính điều khiển và bộ xử lý hình ảnh trước rồi mới đóng CB cấp nguồn màn hình LED. Khi tắt, thực hiện ngược lại hoàn toàn để chống xung đỉnh điện áp làm thủng IC.</p>
+                        <p>3. <strong>Bảo trì định kỳ:</strong> Định kỳ 6 tháng một lần, kỹ thuật viên phải tiến hành kiểm tra đo dòng, đo nhiệt độ các điểm nối và siết lại toàn bộ hệ thống ốc vít vít kẹp cáp.</p>
+                    </div>
+
+                    <!-- IMAGE CANHBAO2 -->
+                    <div class="image-container">
+                        <img src="canhbao2.jpg" alt="Quy trình vận hành an toàn hệ thống màn LED">
+                        <div class="image-caption">Hình 2: Sơ đồ quản trị rủi ro vận hành và khuyến cáo an toàn thiết bị đóng ngắt</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: INTERACTIVE SIMULATOR -->
+            <div class="right-col">
+                <div class="card" style="position: sticky; top: 20px;">
+                    <h2 class="card-title"><i class="fa-solid fa-chart-line"></i> LED Screen Power Load Simulator</h2>
+                    <p style="font-size: 0.95em; color: var(--text-muted); margin-bottom: 20px;">Trình mô phỏng động tương tác thông số điện áp và cân bằng tải hệ thống 3 pha (áp dụng cho hệ 60 Cabin kích thước 5x12):</p>
+                    
+                    <!-- Sim Control 1 -->
+                    <div class="sim-control">
+                        <label for="brightness">Độ sáng màn hình (Brightness)</label>
+                        <div class="range-wrapper">
+                            <input type="range" id="brightness" min="1" max="100" value="14">
+                            <span class="range-val" id="b_val">14%</span>
+                        </div>
+                    </div>
+
+                    <!-- Sim Control 2 -->
+                    <div class="sim-control">
+                        <label for="cabin_pwr">Công suất cực đại của 1 Cabin (Watts)</label>
+                        <div class="range-wrapper">
+                            <input type="range" id="cabin_pwr" min="150" max="350" value="200" step="10">
+                            <span class="range-val" id="p_val">200W</span>
+                        </div>
+                    </div>
+
+                    <!-- Sim Control 3 -->
+                    <div class="sim-control">
+                        <label for="wire_res">Điện trở đường dây cáp nguồn (Ohms)</label>
+                        <select id="wire_res" class="sim-select">
+                            <option value="0.1">Dây lõi đồng lớn, ngắn - Trở thấp (0.1 Ω)</option>
+                            <option value="0.3" selected>Dây tiêu chuẩn trung bình - Trở vừa (0.3 Ω)</option>
+                            <option value="0.7">Dây nhỏ, cũ hoặc quá dài - Trở cao (0.7 Ω)</option>
+                        </select>
+                    </div>
+
+                    <!-- SIMULATOR DYNAMIC RESULTS -->
+                    <div class="sim-results">
+                        <h4 style="font-size: 1em; color: var(--primary-color); margin-bottom: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 6px;">Kết Quả Tính Toán Tải Động</h4>
+                        
+                        <div class="result-row">
+                            <span class="result-label">Tổng công suất tiêu thụ:</span>
+                            <span class="result-value" id="res_total_pwr">0.00 kW</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">Dòng điện tải mỗi dây Pha:</span>
+                            <span class="result-value" id="res_phase_cur">0.0 A</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">Độ sụt áp hao hụt (ΔU):</span>
+                            <span class="result-value" id="res_voltage_drop" style="color: var(--accent-color);">-0.0 V</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">Điện áp thực nhận tại LED:</span>
+                            <span class="result-value" id="res_real_voltage" style="color: var(--primary-light);">220.0 V</span>
+                        </div>
+                    </div>
+
+                    <!-- ALERT DANGER OVERLOAD -->
+                    <div class="danger-alert" id="danger_box">
+                        <i class="fa-solid fa-circle-radiation"></i> <strong>CẢNH BÁO QUÁ TẢI SỤT ÁP!</strong> Điện áp thực tế tụt dưới mức ngưỡng 200V. Hệ thống có nguy cơ hư hỏng IC dữ liệu, chớp màn hoặc phát hỏa do nhiệt lượng quá cao.
+                    </div>
+
+                    <!-- 3-PHASE BALANCE VISUALIZER -->
+                    <div class="phase-title">Trực quan hóa phân bổ tải 3 Pha (Cân Pha)</div>
+                    <div class="phase-grid">
+                        <div class="phase-card p-l1">
+                            PHA L1 (Đỏ)
+                            <div class="phase-sub">20 Cabin</div>
+                            <div class="phase-sub" id="p1_load">0.0 kW</div>
+                        </div>
+                        <div class="phase-card p-l2">
+                            PHA L2 (Xanh)
+                            <div class="phase-sub">20 Cabin</div>
+                            <div class="phase-sub" id="p2_load">0.0 kW</div>
+                        </div>
+                        <div class="phase-card p-l3">
+                            PHA L3 (Vàng)
+                            <div class="phase-sub">20 Cabin</div>
+                            <div class="phase-sub" id="p3_load">0.0 kW</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- SIMULATOR JAVASCRIPT LOGIC -->
+<script>
+    const bInput = document.getElementById('brightness');
+    const pInput = document.getElementById('cabin_pwr');
+    const rInput = document.getElementById('wire_res');
+
+    const bText = document.getElementById('b_val');
+    const pText = document.getElementById('p_val');
+
+    const outPwr = document.getElementById('res_total_pwr');
+    const outCur = document.getElementById('res_phase_cur');
+    const outDrop = document.getElementById('res_voltage_drop');
+    const outVol = document.getElementById('res_real_voltage');
+    const dangerBox = document.getElementById('danger_box');
+
+    const p1Text = document.getElementById('p1_load');
+    const p2Text = document.getElementById('p2_load');
+    const p3Text = document.getElementById('p3_load');
+
+    function updateSimulation() {
+        const totalCabins = 60; // 5 hàng * 12 cột
+        const brightness = parseInt(bInput.value);
+        const cabinPwr = parseInt(pInput.value);
+        const resistance = parseFloat(rInput.value);
+
+        // Hiển thị text nhãn slider
+        bText.innerText = brightness + '%';
+        pText.innerText = cabinPwr + 'W';
+
+        // 1. Tính tổng công suất màn hình thực tế (tỷ lệ tuyến tính theo mức độ sáng)
+        const totalWatts = totalCabins * cabinPwr * (brightness / 100);
+        const totalKW = totalWatts / 1000;
+        outPwr.innerText = totalKW.toFixed(2) + ' kW';
+
+        // 2. Phân bổ cân bằng tải lên hệ thống nguồn 3 pha ổn định (mỗi pha gánh 1/3 công suất)
+        const pwrPerPhase = totalKW / 3;
+        p1Text.innerText = pwrPerPhase.toFixed(2) + ' kW';
+        p2Text.innerText = pwrPerPhase.toFixed(2) + ' kW';
+        p3Text.innerText = pwrPerPhase.toFixed(2) + ' kW';
+
+        // 3. Tính toán dòng điện chạy trên mỗi dây pha độc lập (Điện áp pha chuẩn = 220V)
+        const currentAmps = (pwrPerPhase * 1000) / 220;
+        outCur.innerText = currentAmps.toFixed(1) + ' A';
+
+        // 4. Tính toán độ sụt hao hụt điện áp trên đường truyền dẫn (Delta U = I * R)
+        const vDrop = currentAmps * resistance;
+        outDrop.innerText = '-' + vDrop.toFixed(1) + ' V';
+
+        // 5. Điện áp thực tế còn lại tại các bản mạch đầu nhận cabin
+        const finalVoltage = 220 - vDrop;
+        outVol.innerText = finalVoltage.toFixed(1) + ' V';
+
+        // 6. Kiểm tra ngưỡng an toàn vật lý của nguồn linh kiện (Ngưỡng nguy hiểm dưới 200V)
+        if (finalVoltage < 200) {
+            dangerBox.style.display = 'block';
+            outVol.style.color = '#dc2626';
+        } else {
+            dangerBox.style.display = 'none';
+            outVol.style.color = '#16a34a';
+        }
+    }
+
+    // Đăng ký sự kiện lắng nghe người dùng kéo trượt thanh thông số
+    bInput.addEventListener('input', updateSimulation);
+    pInput.addEventListener('input', updateSimulation);
+    rInput.addEventListener('change', updateSimulation);
+
+    // Thực thi khởi động bảng tính toán ngay khi tải trang xong
+    updateSimulation();
+</script>
+
+</body>
+</html>
