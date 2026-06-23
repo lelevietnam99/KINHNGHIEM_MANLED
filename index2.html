@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cơ chế thay đổi độ sáng và cường độ dòng điện của màn hình LED</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            /* Thêm ảnh nền trực tiếp từ internet */
+            background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover; /* Phủ kín toàn bộ trang */
+            background-position: center; /* Căn giữa ảnh nền */
+            background-attachment: fixed; /* Giữ cố định ảnh nền khi cuộn trang */
+        }
+        .container {
+            /* Làm cho nền của phần văn bản hơi trong suốt (90% trắng) để vừa dễ đọc vừa nhìn thấy background mờ mờ phía sau */
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        ul, ol {
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .highlight {
+            background-color: rgba(232, 244, 248, 0.8);
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .illustration-img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        /* FOOTER CTA: PHẦN 3 */
+        .footer-cta {
+            margin-top: 26px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+        .btn-section3 {
+            display:inline-block;
+            background: linear-gradient(135deg,#f59e0b,#b76e10);
+            color: #fff;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 8px 22px rgba(183,110,16,0.18);
+            transition: transform .16s ease, box-shadow .16s ease;
+            text-align: center;
+            max-width: 920px;
+        }
+        .btn-section3:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 34px rgba(183,110,16,0.26);
+        }
+        @media (max-width: 600px) {
+            .btn-section3 { padding: 12px 14px; font-size: 0.95rem; border-radius: 10px; }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Giải thích cơ chế độ sáng và cường độ dòng điện LED</h1>
+
+    <p>Chào bạn, câu hỏi của bạn rất hay và chạm đến đúng bản chất vật lý của các thiết bị điện tử hiển thị!</p>
+
+    <p>Để hiểu rõ tại sao cường độ dòng điện lại tăng khi bạn tăng độ sáng của màn hình LED, chúng ta cần nhìn vào nguyên lý cơ bản: <strong>Ánh sáng là một dạng năng lượng</strong>. Để một bóng LED phát ra nhiều ánh sáng hơn (sáng hơn), nó bắt buộc phải tiêu thụ nhiều năng lượng điện hơn. Vì điện áp (Voltage - U) cấp cho hệ thống màn hình thường là cố định, nên hệ thống buộc phải rút thêm cường độ dòng điện (Current - I) để đáp ứng nhu cầu năng lượng đó (P = U &times; I).</p>
+
+    <p>Tuy nhiên, "cơ chế" chính xác mà bộ điều khiển thực hiện việc này thường rơi vào một trong hai cách thức sau đây. Cách thứ nhất là phổ biến nhất trên các màn hình LED hiện nay:</p>
+
+    <h2>1. Cơ chế Băm Xung - PWM (Pulse Width Modulation)</h2>
+    <p>Đây là công nghệ được sử dụng trên hầu hết các bộ điều khiển màn hình LED. Thay vì cấp một dòng điện liên tục, bộ điều khiển sẽ <strong>bật và tắt</strong> bóng LED với tốc độ cực kỳ nhanh (thường là hàng ngàn lần mỗi giây). Tốc độ này nhanh đến mức mắt người không thể nhận ra sự nhấp nháy do hiện tượng lưu ảnh của võng mạc, mà chỉ cảm nhận được độ sáng tổng thể.</p>
+
+    <p>Cơ chế tăng dòng điện ở đây liên quan đến <strong>Chu kỳ nhiệm vụ (Duty Cycle)</strong>:</p>
+
+    <img src="anhMH.jpg" alt="Minh họa Cơ chế Băm Xung (PWM) và Chu kỳ nhiệm vụ" class="illustration-img">
+
+    <ul>
+        <li><strong>Khi ở độ sáng thấp (ví dụ 10%):</strong> Bộ điều khiển chỉ bật LED trong 10% thời gian của một chu kỳ, và tắt 90% thời gian còn lại. Mắt bạn sẽ thấy màn hình tối.</li>
+        <li><strong>Khi ở độ sáng cao (ví dụ 90%):</strong> Bộ điều khiển sẽ giữ LED bật trong 90% thời gian và chỉ tắt 10%.</li>
+        <li><strong>Tại sao dòng điện lại tăng?</strong> Khi thời gian "BẬT" (thời gian dòng điện thực sự chạy qua LED) dài hơn, thì dòng điện trung bình mà toàn bộ hệ thống rút ra từ nguồn cấp sẽ tăng lên. Đồng hồ đo điện của bạn đang đo giá trị dòng điện trung bình này.</li>
+    </ul>
+
+    <h2>2. Cơ chế Giảm Dòng Không Đổi - CCR (Constant Current Reduction)</h2>
+    <p>Một số hệ thống điều khiển LED (thường là ở các đèn LED chiếu sáng dân dụng hoặc một số công nghệ màn hình đặc thù) sử dụng phương pháp Analog này.</p>
+    
+    <p>Thay vì bật/tắt liên tục, bộ điều khiển hoạt động giống như một chiếc "van nước":</p>
+    <ul>
+        <li>Khi bạn muốn màn hình tối, bộ điều khiển sẽ siết "van" lại, tăng điện trở, làm cho lượng electron (dòng điện) chạy qua bóng LED ít đi.</li>
+        <li>Khi bạn vặn độ sáng lên tối đa, bộ điều khiển mở toang "van", giảm điện trở xuống mức thấp nhất, cho phép một lượng lớn cường độ dòng điện chảy qua bóng LED liên tục.</li>
+    </ul>
+
+    <div class="highlight">
+        <h2>Tóm lại quy trình diễn ra như sau:</h2>
+        <ol>
+            <li>Bạn thao tác tăng độ sáng trên phần mềm/nút bấm.</li>
+            <li>Vi mạch xử lý trong bộ điều khiển nhận lệnh và ra quyết định thay đổi trạng thái.</li>
+            <li>Bộ điều khiển mở rộng "thời gian BẬT" của các xung điện (PWM) hoặc giảm điện trở để cho dòng điện đi qua nhiều hơn (CCR).</li>
+            <li>Dòng điện (số lượng electron) chạy qua các đi-ốt phát quang (LED) nhiều hơn hoặc lâu hơn.</li>
+            <li>Năng lượng điện này kích thích các bán dẫn trong LED, giải phóng ra nhiều photon (hạt ánh sáng) hơn.</li>
+            <li><strong>Kết quả:</strong> Màn hình sáng hơn và đồng hồ đo báo cường độ dòng điện tổng của hệ thống tăng lên.</li>
+        </ol>
+    </div>
+    <!-- NEW: PHẦN 3 CTA -->
+    <div class="card" style="margin-top:18px;">
+        <div class="card-title" style="border-bottom:none; padding-bottom:0;">
+            <i class="fa-solid fa-lightbulb" style="color:var(--primary-light);"></i>
+        </div>
+        <div style="margin-top:12px; text-align:center;">
+            <a href="index2.html" class="btn-section3" title="PHẦN 3: Giải thích cơ chế tăng độ sáng của bộ điều khiển màn LED" target="_blank" rel="noopener noreferrer">
+                PHẦN 3: GIẢI THÍCH CƠ CHẾ TĂNG ĐỘ SÁNG CỦA BỘ ĐIỀU KHIỂN MÀN LED
+            </a>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
