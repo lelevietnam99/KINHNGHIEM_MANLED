@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cơ chế thay đổi độ sáng và cường độ dòng điện của màn hình LED</title>
     <style>
+        
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
@@ -18,6 +19,33 @@
             background-position: center; /* Căn giữa ảnh nền */
             background-attachment: fixed; /* Giữ cố định ảnh nền khi cuộn trang */
         }
+        /* Căn giữa toàn bộ khối chứa link */
+.footer-link {
+    text-align: center;
+    margin: 40px 0; /* Tạo khoảng cách thoáng đãng trên và dưới */
+}
+
+/* Biến thẻ a (đường link) thành một khối Box nổi bật */
+.footer-link a {
+    display: inline-block;
+    text-decoration: none; /* Bỏ gạch chân mặc định của link */
+    background: linear-gradient(135deg, #0984e3, #74b9ff); /* Nền chuyển màu xanh dương */
+    color: #ffffff; /* Chữ màu trắng */
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 16px 32px; /* Tạo độ phình cho box (trên/dưới 16px, trái/phải 32px) */
+    border-radius: 50px; /* Bo tròn hai đầu dạng viên thuốc */
+    box-shadow: 0 5px 15px rgba(9, 132, 227, 0.3); /* Đổ bóng nhẹ phía dưới */
+    transition: all 0.3s ease; /* Làm mượt mọi hiệu ứng chuyển động */
+    border: 2px solid rgba(255, 255, 255, 0.2); /* Viền mờ bao quanh */
+}
+
+/* Hiệu ứng khi người dùng rê chuột (hover) vào nút */
+.footer-link a:hover {
+    transform: translateY(-5px); /* Nẩy nhẹ lên trên 5 pixel */
+    box-shadow: 0 10px 25px rgba(9, 132, 227, 0.5); /* Đổ bóng lan rộng và đậm hơn */
+    background: linear-gradient(135deg, #0652dd, #0984e3); /* Đổi dải màu nền tối lại một chút */
+}
         .container {
             /* Làm cho nền của phần văn bản hơi trong suốt (90% trắng) để vừa dễ đọc vừa nhìn thấy background mờ mờ phía sau */
             background-color: rgba(255, 255, 255, 0.9);
