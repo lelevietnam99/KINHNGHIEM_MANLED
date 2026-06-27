@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiểu Rõ Về Dòng Điện 3 Pha - 220V & 380V</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0984e3;
+            --secondary-color: #d63031;
+            --text-color: #2d3436;
+            --bg-color: #f5f6fa;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Khung bài viết chính */
+        .article-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-top: 5px solid var(--primary-color);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #636e72;
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            border-bottom: 2px solid #ffeaa7;
+            padding-bottom: 8px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        /* Định dạng hình ảnh */
+        .image-wrapper {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .image-wrapper img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .image-caption {
+            font-size: 0.9rem;
+            color: #636e72;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* Định dạng danh sách và highlight */
+        ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .highlight-box {
+            background-color: #e8f4fd;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+        .formula {
+            font-family: monospace;
+            font-size: 1.2rem;
+            color: #d35400;
+            background: #fdf2e9;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="article-card">
+            <h1>Giải Mã Dòng Điện 3 Pha</h1>
+            <div class="subtitle">Từ nguyên lý tạo ra đến cách phân phối vào từng hộ gia đình</div>
+
+            <h2>1. Cách người ta tạo ra dòng điện 3 pha</h2>
+            <p>Dòng điện xoay chiều được tạo ra dựa trên hiện tượng cảm ứng điện từ: khi một nam châm quay gần một cuộn dây đồng, nó sẽ sinh ra dòng điện trong cuộn dây đó.</p>
+            <p>Để tạo ra điện 3 pha, người ta chế tạo một máy phát điện có cấu tạo đặc biệt:</p>
+            <ul>
+                <li><strong>Phần tĩnh (Stator):</strong> Gồm 3 cuộn dây đồng đặt cố định, cách đều nhau một góc <strong>120 độ</strong> quanh một vòng tròn.</li>
+                <li><strong>Phần quay (Rotor):</strong> Là một nam châm điện đặt ở chính giữa.</li>
+            </ul>
+
+            <div class="image-wrapper">
+                <img src="anhminhhoa12.jpg" alt="Minh họa nguyên lý dòng điện 3 pha">
+                <div class="image-caption">Hình ảnh minh họa hệ thống điện 3 pha</div>
+            </div>
+
+            <p>Khi nam châm ở giữa quay, từ trường của nó sẽ lần lượt quét qua 3 cuộn dây. Vì 3 cuộn dây đặt lệch nhau 120 độ, nên dòng điện sinh ra trong 3 cuộn dây này cũng không đạt đỉnh cùng một lúc mà "lệch pha" nhau đúng 1/3 chu kỳ. Kết quả là chúng ta có 3 dòng điện xoay chiều chạy trên 3 sợi dây độc lập, tạo thành "điện 3 pha".</p>
+
+            <h2>2. Giải mã con số 220V và 380V</h2>
+            <p>Hệ thống điện lưới truyền tải về khu dân cư thường sử dụng cấu hình <strong>4 dây</strong>, bao gồm 3 dây pha (nóng) L1, L2, L3 và 1 dây trung tính (nguội) N.</p>
+            
+            <ul>
+                <li><strong>Điện áp pha (220V):</strong> Là điện áp đo được giữa <strong>1 dây pha bất kỳ và dây trung tính</strong>. Tại Việt Nam, chuẩn là 220V, dùng cho mọi thiết bị điện gia dụng thông thường.</li>
+                <li><strong>Điện áp dây (380V):</strong> Là điện áp đo được giữa <strong>2 dây pha với nhau</strong>.</li>
+            </ul>
+
+            <div class="highlight-box">
+                Bởi vì dòng điện trên 2 dây pha lệch nhau 120 độ, mức điện áp được tính qua công thức véc-tơ:<br><br>
+                <span class="formula">U<sub>dây</sub> = U<sub>pha</sub> &times; &radic;3</span><br><br>
+                Thay số: 220 &times; 1.732 &approx; 380V.
+            </div>
+            
+            <p>Điện 380V rất khỏe, tạo ra từ trường quay đều đặn nên được dùng để chạy các động cơ công suất lớn trong công nghiệp.</p>
+
+            <h2>3. Cách phân phối điện vào hộ gia đình</h2>
+            <p>Từ trạm biến áp của khu phố, điện lực sẽ kéo cả 4 sợi dây chạy dọc theo các cột điện ngoài đường.</p>
+            <ul>
+                <li><strong>Đối với nhà máy, xưởng:</strong> Kéo thẳng cả 4 sợi dây vào tủ điện để dùng nguồn 380V chạy máy móc.</li>
+                <li><strong>Đối với hộ gia đình:</strong> Chỉ cần 220V, nên thợ điện sẽ kéo 2 sợi dây vào nhà bạn: <strong>1 dây trung tính và 1 dây pha bất kỳ</strong>.</li>
+            </ul>
+
+            <p><strong>Bài toán cân bằng tải:</strong></p>
+            <p>Để tránh việc một dây pha bị quá tải (ví dụ ai cũng đấu vào dây L1), điện lực sẽ chia đều các hộ gia đình ra 3 dây. Ví dụ: Nhà số 1 đấu L1, nhà số 2 đấu L2, nhà số 3 đấu L3... Điều này giúp 3 cuộn dây ngoài trạm biến áp làm việc với lực kéo ngang nhau, giúp hệ thống bền bỉ và ổn định.</p>
+        </div>
+    </div>
+
+</body>
+</html>
